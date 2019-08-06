@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sksurv.nonparametric import kaplan_meier_estimator
 
-path = 'csv/PC200_evalresult.csv'
+path = 'csv/PC200_agesmr_eval.csv'
 
 data = pd.read_csv(path, index_col='SID', delimiter=',')
 
@@ -16,6 +16,7 @@ for i in range(3):
         figure = plt.figure()
 
         time, survival_prob = kaplan_meier_estimator(list(map(lambda i : i==1, c[key]["FSTAT"])), c[key]["SMR"])
+        print(key+str(survival_prob))
         plt.step(time, survival_prob, where="post")
 
         plt.savefig(key+'.png')
