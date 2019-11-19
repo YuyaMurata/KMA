@@ -4,12 +4,12 @@ from sklearn.manifold import TSNE
 import pandas as pd
 from sklearn import preprocessing, decomposition
 
-path = 'file/PC200_mainte_eval_kmpp_10_10t.csv'
+path = 'file/pumpmax_dbsca01_1.csv'
 
-df = pd.read_csv(path)
+df = pd.read_csv(path, encoding='SJIS')
 df = df[df.CID > 0]
 
-data = df.iloc[:, 4:11]
+data = df.iloc[:, 5:13]
 target = df['CID']
 
 print(data)

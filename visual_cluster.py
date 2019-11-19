@@ -7,12 +7,14 @@ import pyclustering
 from pyclustering.cluster import xmeans
 import pylab
 
-filename = 'file/PC200_mainte_eval_kmpp_10_10t.csv'
+filename = 'file/PC200_mainte_eval.csv'
 
 data = pd.read_csv(filename, index_col='SID', delimiter=',')
 
+g = 'SCORE'
+
 print(data)
-n = int(max(data.CID))
+n = int(max(data[g]))
 
 clusters = data.iloc[:,11].values
 axdata = data.iloc[:,[1,10]]
@@ -23,14 +25,14 @@ print([clusters.tolist()])
 xs = 'AGE'
 ys = 'AVG'
 
-cl =data['CID'].tolist()
+cl =data[g].tolist()
 
 for i in range(0,n+1):
-    c = data[data.CID == i]
+    c = data[data[g] == i]
     name = 'C'+str(i)
     plt.scatter(c[xs], c[ys], c = cm.cmaps_listed.get(cl.index(i)), s=5,  label=name)
 
-print('cluster:'+str(len(set(data['CID'].values))))
+print('cluster:'+str(len(set(data[g].values))))
 
 #plt.legend(loc=4)
 
