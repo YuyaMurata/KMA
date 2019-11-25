@@ -7,9 +7,9 @@ import pyclustering
 from pyclustering.cluster import xmeans
 import pylab
 
-filename = 'file/PC200_mainte_eval.csv'
+filename = 'file/PC200_mainte_eval_center.csv'
 
-data = pd.read_csv(filename, index_col='SID', delimiter=',')
+data = pd.read_csv(filename, index_col='SID', delimiter=',', encoding='SJIS')
 
 g = 'SCORE'
 
@@ -35,6 +35,8 @@ for i in range(0,n+1):
 print('cluster:'+str(len(set(data[g].values))))
 
 #plt.legend(loc=4)
+
+#plt.xlim(0, 10000)
 
 plt.xlabel("X")
 plt.ylabel("Y")
