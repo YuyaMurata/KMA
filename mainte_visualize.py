@@ -45,7 +45,7 @@ print('cluster:'+str(len(set(data[g].values))))
 plt.xlabel(xs)
 plt.ylabel(ys)
 
-plt.show()
+#plt.show()
 
 plt.savefig(file.replace('.csv', '.png'))
 plt.close()
