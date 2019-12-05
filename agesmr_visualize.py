@@ -18,10 +18,11 @@ if len(args) <= 1:
 if len(args) > 1:
     path = args[1]
 '''
-root = [f for f in os.listdir(path) if '1,0_FR.csv' in f]
+
+root = [f for f in os.listdir(path) if '_FR.csv' in f]
 
 def scale_image(label, max):
-    fig, ax = plt.subplots(figsize=(10, 10))  # 画像サイズ
+    fig, ax = plt.subplots(figsize=(5, 5))  # 画像サイズ
     fig.set_figheight(1)  # 高さ調整
 
     plt.xlim(0, max)
@@ -30,6 +31,7 @@ def scale_image(label, max):
     ax.set_frame_on(False)
     ax.get_xaxis().tick_bottom()
     ax.axes.get_yaxis().set_visible(False)
+    ax.tick_params(direction='inout', length = 10, labelsize=10)
 
     xmin, xmax = ax.get_xaxis().get_view_interval()
     ymin, ymax = ax.get_yaxis().get_view_interval()
@@ -39,7 +41,9 @@ def scale_image(label, max):
     ax.text(max, -0.05, round(max,2), fontsize=10)
 
     plt.tight_layout()
-    plt.show()
+
+    #plt.show()
+    plt.savefig(path+'/scale_'+label+'.png')
 
     plt.close()
 
@@ -66,7 +70,7 @@ def data_max(root):
     return n, r
 
 
-def graph(data, setting_info, analize_info, pmax, rmax, xmax):
+def graph(file, data, setting_info, analize_info, pmax, rmax, xmax):
     fig = plt.figure()
     fig.subplots_adjust(left=0.05, bottom=0.1, right=0.95, top=0.95, wspace=0.1, hspace=0.1)
     #fig.subplots_adjust(right=0.85)
@@ -79,7 +83,7 @@ def graph(data, setting_info, analize_info, pmax, rmax, xmax):
     ax1.set_xlabel(setting_info.split(',')[1] + '(dx' + setting_info.split(',')[3] + ')', fontsize=12)
 
     ax1.set_ylabel('P', fontsize=12)
-    ax2.set_ylabel('Rate', fontsize=12)
+    ax2.set_ylabel('FR', fontsize=12)
     #ax3.set_ylabel('Count')
 
     #rspine = ax3.spines['right']
@@ -109,9 +113,9 @@ def graph(data, setting_info, analize_info, pmax, rmax, xmax):
     #plt.xticks(color="None")
     #plt.yticks(color="None")
 
-    plt.show()
+    #plt.show()
 
-    #plt.savefig(file.replace('.csv', '.png'))
+    plt.savefig(file.replace('.csv', '.png'))
 
     plt.close()
 
@@ -128,7 +132,7 @@ def process_file(pmax, rmax, xmax):
         print(analize_info)
         print(data)
 
-        graph(data, setting_info, analize_info, pmax, rmax, xmax)
+        graph(file, data, setting_info, analize_info, pmax, rmax, xmax)
 
 if __name__ == '__main__':
     n, r = data_max(root)
@@ -137,9 +141,7 @@ if __name__ == '__main__':
     x = 10000
 
     scale_image('SMR', x)
-    scale_image('Population', n)
-    scale_image('Failure Rate', r)
-
-    exit(0)
+    scale_image('Population (P)', n)
+    scale_image('Failure Rate (FR)', r)
 
     process_file(n, r, x)
