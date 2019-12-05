@@ -9,7 +9,6 @@ import pylab
 
 path = 'out'
 
-'''
 args = sys.argv
 #引数の処理
 if len(args) <= 1:
@@ -17,10 +16,11 @@ if len(args) <= 1:
     exit(0)
 if len(args) > 1:
     path = args[1]
-'''
+
 
 root = [f for f in os.listdir(path) if '_FR.csv' in f]
 
+#グラフのスケール画像を生成
 def scale_image(label, max):
     fig, ax = plt.subplots(figsize=(5, 5))  # 画像サイズ
     fig.set_figheight(1)  # 高さ調整
@@ -47,7 +47,7 @@ def scale_image(label, max):
 
     plt.close()
 
-
+#全データ中から軸の最大値を発見
 def data_max(root):
     n = 0
     r = 0.0
@@ -69,7 +69,7 @@ def data_max(root):
 
     return n, r
 
-
+#データのグラフ化
 def graph(file, data, setting_info, analize_info, pmax, rmax, xmax):
     fig = plt.figure()
     fig.subplots_adjust(left=0.05, bottom=0.1, right=0.95, top=0.95, wspace=0.1, hspace=0.1)
@@ -128,9 +128,9 @@ def process_file(pmax, rmax, xmax):
         setting_info = lines[0].strip()
         analize_info = lines[1].strip()
 
-        print(setting_info)
-        print(analize_info)
-        print(data)
+        #print(setting_info)
+        print(f.replace('_FR.csv', '')+':'+analize_info)
+        #print(data)
 
         graph(file, data, setting_info, analize_info, pmax, rmax, xmax)
 
